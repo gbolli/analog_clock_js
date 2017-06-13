@@ -3,8 +3,6 @@ const MINUTEHAND = document.querySelector("#minute");
 const SECONDHAND = document.querySelector("#second");
 
 
-function runTheClock() {
-
 // get hours, minutes, seconds from date
 var date = new Date();
 console.log(date);
@@ -19,9 +17,17 @@ let minPosition = (min*360/60)+(sec*(360/60)/60);
 let secPosition = sec*360/60;
 
 
-HOURHAND.style.transform = "rotate(" + hrPosition + "deg)";
-MINUTEHAND.style.transform = "rotate(" + minPosition + "deg)";
-SECONDHAND.style.transform = "rotate(" + secPosition + "deg)";
+function runTheClock() {
+
+  // this removes the second hand "reset to zero" problem
+  // clock may fall out of sync with browser throttling because date is not checked
+  hrPosition = hrPosition + (3/36);
+  minPosition = minPosition + (6/60);
+  secPosition = secPosition + 6;
+
+  HOURHAND.style.transform = "rotate(" + hrPosition + "deg)";
+  MINUTEHAND.style.transform = "rotate(" + minPosition + "deg)";
+  SECONDHAND.style.transform = "rotate(" + secPosition + "deg)";
 
 };
 
